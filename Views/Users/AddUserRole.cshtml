@@ -1,0 +1,18 @@
+@using Microsoft.AspNetCore.Identity;
+@model IdentityUser
+@{
+    ViewData["Title"] = "Danh sách các role";
+}
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-6">
+        <p>Chọn các role gán cho <strong>@Model.UserName</strong></p>
+        <form method="post">
+            
+                <select style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.ListRoles" 
+                name="id"></select>
+                <input asp-for="Id" name="userName" class="form-control" />
+            <button type="submit" class="btn btn-danger">Cập nhật</button>
+        </form>
+    </div>
+</div>

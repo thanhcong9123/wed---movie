@@ -1,0 +1,27 @@
+@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<AppFilm.Net.Controllers.UsersController.UserInList>
+
+
+
+
+<table class="table table-striped" >
+    <tr style="color: #fff;">
+        <th>UserName</th>
+        <th>Roles</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var user in @Model)
+    {
+        <tr style="color: #fff;">
+            <td>@user.UserName</td>
+            <td>@user.listroles</td>
+            <td>
+                <form method="get" class="d-inline">
+                <button  class="btn btn-primary btn-sm" 
+                       asp-action="AddUserRole" asp-route-id="@user.Id"  >Cập nhật Role</button>
+                </form>
+            </td>
+        </tr>
+        
+    }
+</table>

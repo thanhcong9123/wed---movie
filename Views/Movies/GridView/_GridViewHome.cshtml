@@ -1,0 +1,21 @@
+@model IEnumerable<AppFilm.Net.Models.Movie>
+<div class="movies-like d-flex" style=" flex-wrap: wrap; justify-content: center;">
+    @{
+        int count1 = 0;
+    }
+    @foreach (var item in Model)
+    {
+        <div class="" style="height: 410px; width: 240px; margin: 9px; margin-top: 0;  flex-shrink: 1;">
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id"> <img style="width: 100%; height: 90%"
+                        src="@item.Image"></a>
+                <h6 style="color: #a1a3c6;" class="">@Html.DisplayFor(modelName => item.NameEL)</h6>
+            </td>
+        </div>
+        count1++;
+        if (count1 == 5)
+        {
+            break;
+        }
+    }
+</div>

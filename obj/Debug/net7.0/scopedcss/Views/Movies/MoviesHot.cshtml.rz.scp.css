@@ -1,0 +1,112 @@
+body[b-xds5ryglpm]{
+    font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+body[b-xds5ryglpm] {
+    color: #fff;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+
+.title[b-xds5ryglpm] {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.125;
+}
+.has-text-centered[b-xds5ryglpm]{
+    text-align: center;
+}
+.MuiPaper-root[b-xds5ryglpm] {
+    color: #fff;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: #0b1e30;
+}
+.MuiPaper-elevation1[b-xds5ryglpm]{
+    border-radius: 4px;
+    
+}
+.MuiTabs-root[b-xds5ryglpm] {
+  
+    overflow: hidden;
+    min-height: 48px;
+   
+}
+.MuiTabs-fixed[b-xds5ryglpm] {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+
+.MuiTabs-centered[b-xds5ryglpm] {
+    justify-content: center;
+}
+
+
+.MuiTabs-flexContainer[b-xds5ryglpm] {
+    display: flex;
+}
+
+.MuiTab-root[b-xds5ryglpm] {
+    min-width: 600px;
+}
+
+.MuiTab-textColorPrimary.Mui-selected[b-xds5ryglpm] {
+    color: #3f51b5;
+}
+.MuiTab-textColorPrimary[b-xds5ryglpm] {
+    color: rgba(255, 255, 255, 0.7);
+}
+span[b-xds5ryglpm] {
+    font-style: inherit;
+    font-weight: inherit;
+}
+.nav-tabs .nav-link.active[b-xds5ryglpm] {
+    color: #3f51a9;
+    background-color: transparent;
+    border-bottom: 2px solid #3f51a9;
+    
+    
+}
+
+.nav-tabs[b-xds5ryglpm] {
+    border-bottom: transparent;
+   
+}
+.MuiTab-root[b-xds5ryglpm] {
+    width: 160px;
+}
+.MuiTab-root[b-xds5ryglpm] {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    max-width: 264px;
+    min-width: 72px;
+    box-sizing: border-box;
+    min-height: 48px;
+    text-align: center;
+    flex-shrink: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    text-transform: uppercase;
+}
+.MuiButtonBase-root[b-xds5ryglpm] {
+    color: inherit;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    display: inline-flex;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    align-items: center;
+    user-select: none;
+    border-radius: 0;
+    vertical-align: middle;
+    
+    justify-content: center;
+    text-decoration: none;
+    background-color: transparent;
+  
+    -webkit-tap-highlight-color: transparent;
+}

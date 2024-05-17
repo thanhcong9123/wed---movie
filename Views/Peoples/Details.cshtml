@@ -1,0 +1,105 @@
+@model AppFilm.Net.Models.People
+<!DOCTYPE html>
+
+<html lang="en">
+@{
+    @* ViewData["Title"] = "Details"; *@
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/Peoples/Details.cshtml.css">
+</head>
+
+<body>
+<section class="section">
+    <div class="container">
+        <div class="person-details columns is-variable is-8">
+            <div class="column information">
+                <p class="item-img ">
+                    <img src="@Model.Image" alt="">
+                </p>
+                 <h5 class="title is-5">Thông tin cá nhân</h5>
+                    <dl>
+                        <dt>
+                            Nghề nghiệp
+                        </dt>
+                        <dd>
+                            @{
+                                var JobPeople = ViewBag.JobPeople;
+                               if(JobPeople != null)
+                               {
+                                 foreach(var item in JobPeople)
+                                 {
+                                    @item.Job.NameJob
+                                 }
+                               }
+                            }
+                        </dd>
+                        <dt>
+                            Giới tính
+                        </dt>
+                        <dd>
+                            @Model.Gender
+                        </dd>
+                        <dt>
+                            Ngày sinh
+                        </dt>
+                        <dd>
+                            @Model.YearofBirth
+                        </dd>
+                        <dt>
+                            Nơi sinh
+                        </dt>
+                        <dd>
+                            @Model.PlaceofBirth
+                        </dd>
+                    </dl>
+            </div>
+            <div class="column introduce">
+                <h1 class="title is-1">
+                    @Model.NamePeople
+                </h1>
+                <h5 class="title is-5">
+                    Tiểu sử
+                </h5>
+                <div class="biointroduction">
+                    <p class="story">
+                        @Model.Story
+                    </p>
+                </div>
+                <h5 class="title is-5">
+                    Các phim đã tham gia
+                </h5>
+                <div class="item-listmovie">
+                    @{
+                                var MoviePeople = ViewBag.MoviePeople;
+                               if(MoviePeople != null)
+                               {
+                                 foreach(var item in MoviePeople)
+                                 {
+                                    if(item.Movie != null)
+                                    {
+                                        <div>
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Movie.Id"> <img style="width: 260px; height: 370px;"
+                                         src="@item.Movie.Image"></a>
+                                         <h6 style="color: #a1a3c6;" class="">@item.Movie.NameEL</h6>
+                                        </div>
+                                    }
+                                 }
+                               }
+                            }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+
+</html>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>

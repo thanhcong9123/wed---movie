@@ -1,0 +1,127 @@
+@model AppFilm.Net.Models.PeopleView
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Peoples/Create.cshtml.css">
+
+</head>
+<style>
+    .background {
+        height: 600px;
+        /* Làm kích thước ảnh thu lại đủ để chu trong khung */
+        background-size: cover;
+        /* Thuộc tính background-position dùng để thiết lập "vị trí của hình nền" trong phần tử HTML. */
+        background-position: 50% 0;
+        /* Thuộc tính background-repeat dùng để thiết lập "sự lặp lại của hình nền" cho phần tử HTML. */
+        background-repeat: no-repeat;
+        /* làm cho phần tử không tác động đến các thẻ khác */
+        position: relative;
+    }
+
+    .background:before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(2, 13, 24, .75);
+    }
+
+    section {
+        margin-top: -360px;
+        position: relative;
+    }
+
+    .img_poeple img {
+        width: 275px;
+        height: 420px;
+        border: 2px solid #7A7A7A;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+
+    }
+
+    .item-people input {
+        font-size: 16px;
+        color: #f8f6f6;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #fff;
+        margin-bottom: 10px;
+        outline: none;
+
+    }
+</style>
+
+<body>
+    <div class="background w-100 "
+        style=" background-image: url(https://img.freepik.com/free-vector/cinema-movie-film-festival-background_1017-23458.jpg?size=626&ext=jpg); ">
+    </div>
+    <section>
+        <div class="container">
+            <div class="columns">
+                <div class="img_poeple">
+                    <img src="" alt="" id="imgpeople">
+                </div>
+                <form  asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="group-form">
+                        <div class="item-people m-3">
+                            <input asp-for="Image" class="w-100 py-2" type="text" placeholder="Img" id="Img">
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+                        <div class="item-people m-3">
+                            <input asp-for="NamePeople" class="w-100 py-2" type="text" placeholder="Name" id="NamePeople">
+                            <span asp-validation-for="NamePeople" class="text-danger"></span>
+                        </div>
+                        <div class="item-people m-3">
+                            <input asp-for="YearofBirth" class="w-100 py-2" type="text" placeholder="Year of Birth (yyyy-yy-yy)"
+                                id="YearofBirth">
+                            <span asp-validation-for="YearofBirth" class="text-danger"></span>
+                        </div>
+                        <div class="item-people m-3">
+                            <input asp-for="Gender" class="w-100 py-2" type="text" placeholder="Gender" id="GenderPeople">
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        <div class="item-people m-3">
+                            <select asp-for="Job" style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Job"
+                                  name="Job"  id="Job" >
+                            </select>
+                            <span asp-validation-for="Job" class="text-danger"></span>
+
+                        </div>
+                        <div class="item-people m-3">
+                            <input asp-for="PlaceofBirth" class="w-100 py-2" type="text" placeholder="Place of Birth" id="PlaceofBirth">
+                            <span asp-validation-for="PlaceofBirth" class="text-danger"></span>
+                        </div>
+                        <div class="item-people m-3">
+                            <input asp-for="Story" class="w-100 py-2" type="text" placeholder="Story" id="Story">
+                            <span asp-validation-for="Story" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Create">
+                </form>
+            </div>
+
+        </div>
+    </section>
+</body>
+
+</html>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var output = document.getElementById('imgpeople');
+        output.src = $("#Img").val();
+    })
+    $("#Img").on("change", function () {
+        var output = document.getElementById('imgpeople');
+        output.src = $(this).val();
+    })
+</script>

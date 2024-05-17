@@ -1,0 +1,851 @@
+@model AppFilm.Net.Models.Movie
+@{
+    ViewData["Title"] = "Details";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+</head>
+<style>
+    * {
+    min-height: 0;
+    min-width: 0;
+}
+    .item-hori {
+        text-decoration: none;
+        color: #dbdbdb;
+        font-weight: 700;
+    }
+    .item-hori a:hover {
+        text-decoration: underline;
+    }
+    .section {
+        padding: 3rem 0.8rem;
+        display: block;
+    }
+    .container {
+        margin: 0 auto;
+        position: relative;
+        width: auto;
+    }
+    .shiftup {
+        margin-top: -360px;
+    }
+    .tt-details .watch {
+        margin-top: 1.5em;
+        background-color: #dd003f;
+        text-transform: uppercase;
+        /* height: 50px; */
+        font-size: 1.25rem;
+        justify-content: center;
+
+    }
+    .button.is-fullwidth {
+        display: flex;
+        width: 100%;
+        color: #fff;
+
+
+    }
+    .watch.button svg {
+        margin-right: 20px;
+        width: 20px;
+    }
+    .columns {
+        display: flex;
+    }
+    .subtitle {
+        color: #7a7a7a;
+        font-size: 30px;
+    }
+    .subtitle a:hover {
+        color: rgb(176, 144, 85);
+    }
+    .columns.is-variable.is-8 {
+        /* Xác định khoảng cách nữa hai cột */
+        column-gap: 2rem;
+    }
+    .columns.is-variable {
+        --columnGap: 0.75rem;
+        margin-left: calc(-1*var(--columnGap));
+        margin-right: calc(-1*var(--columnGap));
+    }
+    .backdrop {
+        height: 600px;
+        /* Làm kích thước ảnh thu lại đủ để chu trong khung */
+        background-size: cover;
+        /* Thuộc tính background-position dùng để thiết lập "vị trí của hình nền" trong phần tử HTML. */
+        background-position: 50% 0;
+        /* Thuộc tính background-repeat dùng để thiết lập "sự lặp lại của hình nền" cho phần tử HTML. */
+        background-repeat: no-repeat;
+        /* làm cho phần tử không tác động đến các thẻ khác */
+        position: relative;
+    }
+    .backdrop:before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(2, 13, 24, .75);
+    }
+    .column {
+        display: block;
+        flex-basis: 0;
+        /* Flex-grow sẽ được sử dụng khi tổng kích thước các item trong container của bạn nhỏ hơn kích thước của container và bạn muốn nội dung trong container của mình luôn được lấp đầy. */
+        flex-grow: 1;
+        /* ngược lại với flex-grow  */
+        flex-shrink: 1;
+        padding: 0.75rem;
+    }
+    .columns.is-variable>.column {
+        padding-left: var(--columnGap);
+        padding-right: var(--columnGap);
+    }
+    .column.is-one-quarter-tablet {
+        flex: none;
+        width: 25%;
+    }
+    .div {
+        display: block;
+    }
+    img {
+        height: auto;
+        /* Làm cho chiều dài anh thay đổi theo kích thước trang */
+        max-width: 100%;
+    }
+    a {
+        color: #428bca;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .imdb-icon {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        /* Thuộc tính vertical-align sắp xếp các nội dung theo chiều dọc.(vertical-align: middle;	Thành phần sẽ được canh giữa theo thành phần bao ngoài.) */
+        vertical-align: middle;
+        margin: -0.3em 0.6em 0 0;
+    }
+    .meta {
+        padding-bottom: 1em;
+    }
+    .has-text-weight-bold {
+        font-weight: 700 !important;
+        padding-top: 4px;
+    }
+    .span {
+        font-style: inherit;
+        font-weight: inherit;
+    }
+    .genres {
+        margin-bottom: 50px;
+    }
+    .level-left {
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .level-left .level-item:not(:last-child),
+    .level-right .level-item:not(:last-child) {
+        margin-right: 0.75rem;
+    }
+    .button {
+        /* -webkit-appearance: none; */
+        align-items: center;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        display: inline-flex;
+        font-size: 1rem;
+        height: 2.5em;
+        justify-content: flex-start;
+        line-height: 1.5;
+        padding: calc(0.5em - 1px) calc(0.75em - 1px);
+        position: relative;
+        vertical-align: top;
+    }
+    /* css cho thẻ chia sẻ fb  */
+    .button.is-link {
+        background-color: #485fc7;
+        border-color: transparent;
+        color: #fff;
+    }
+    .fb-share {
+        background-color: rgba(26, 74, 152, .78);
+        text-decoration: none;
+    }
+    .fb-share svg {
+        height: 1.3em;
+        fill: #fff;
+        margin-right: 0.9em;
+
+    }
+    .collection-btn svg {
+        height: 1.3em;
+        fill: #fff;
+        margin-right: 0.5em;
+    }
+    /* css cho thẻ bộ sưu tập */
+    .button.is-info.is-outlined {
+        background-color: transparent;
+        border-color: #3e8ed0;
+        color: #3e8ed0;
+    }
+    .button.is-info.is-outlined:hover {
+
+        background: #3e8ed0;
+        color: #fff;
+    }
+    .has-text-left {
+        text-align: left !important;
+    }
+    .buttons .button {
+        text-decoration: none;
+        margin-right: 0.5rem;
+    }
+    /* thiết lập màu sắc của thẻ a hiện thị thể loại của phim */
+    .button.is-link.is-inverted.is-outlined {
+        background-color: transparent;
+        border-color: #fff;
+        color: #fff;
+    }
+    /* trỏ vào thẻ a thực hiện đổi màu */
+    .button.is-link.is-inverted.is-outlined:hover {
+        background: #121212;
+        color: #2a61f0;
+    }
+    .button.is-rounded {
+        border-radius: 9999px;
+        padding-left: 1.25em;
+        padding-right: 1.25em;
+    }
+    .button.is-small {
+        font-size: .75rem;
+    }
+    .horizontal-dl {
+        margin-bottom: 1.5rem;
+    }
+    .horizontal-dl dt {
+        /* Chữ viết hoa */
+        text-transform: uppercase;
+        color: #7a7a7a;
+        /* Làm thẻ dt và dd lên cùng một hàng (Nếu dt ở trên không có dd thì dt ở trên nằm ngang hàng với dt ở dưới)*/
+        float: left;
+        /* Tạo ra một khoảng cách */
+        clear: left;
+        width: 120px;
+    }
+    /* Làm cho thẻ dd là một cột riêng với thẻ dt */
+    .horizontal-dl dd {
+        float: left;
+    }
+    .horizontal-dl a {
+        color: #dbdbdb;
+        font-weight: 700;
+    }
+    .horizontal-dl a:hover {
+        /* trỏ chuột vào hiện thị gạch dưới thẻ a  */
+        text-decoration: underline;
+    }
+    .horizontal-dl {
+        /* vì thẻ dl không phải thẻ dev nên dễ bị thẻ dưới tràn lên (Thuộc tính overflow xác định điều gì sẽ xảy ra nếu một thành phần box tràn nội dung.) */
+        overflow: auto;
+    }
+    .intro {
+        color: #b5b5b5 !important;
+        margin-bottom: 40px;
+    }
+    .section-header {
+        font-weight: 700;
+        text-transform: uppercase;
+        margin: 2em 0 1.2em;
+        font-size: .9em;
+    }
+    .trailer-item {
+        margin-right: 20px;
+        position: relative;
+        /* height: 0;  */
+        overflow: hidden;        
+    }
+    .trailer-item {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .image{
+        display: inline-block;
+        margin: 2px 2px 0.5em;
+    }
+    .cast figure {
+    height: 150px;
+    width: 150px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.tt-details .cast .item {
+    text-align: center;
+    font-size: .9em;
+}
+    .trailer-item .icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @* -webkit-transform: translate(-50%,-50%); *@
+    transform: translate(-50%,-50%);
+    display: none;
+    fill: #fff;
+    }
+    .trailer-item:hover {
+        box-shadow: 0 0 0 2px #cc7b19;   
+    .icon{
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+        height: 1.5rem;
+        width: 1.5rem;
+       }
+    }
+</style>
+<body>
+    <div class="backdrop" style="background-image: url(@Model.Background); "></div>
+    <section class="section">
+        <div class="container shiftup">
+            <div class="tt-details columns is-variable is-8">
+                <div class="column is-one-quarter-tablet">
+                    <p class="cover has-text-centered">
+                        <img src="@Model.Image">
+                    </p>
+                </div>
+                <div class="column main">
+                    <h1 class="title">
+
+                        @Html.DisplayFor(m => Model.NameEL)
+
+                    </h1>
+                    <div class="d-flex">
+                        <h2 class="subtitle">
+                            @Html.DisplayFor(m => Model.NameVN)
+                            <a asp-action="Index" asp-route-yearTostring="@Model.ReleaseDate.Year"
+                                style="text-decoration: none; ">(@Model.ReleaseDate.Year)</a>
+                        </h2>
+
+                    </div>
+
+                    <div class="d-flex meta">
+                        <span class="imdb-icon" style="">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <path
+                                    d="M44 13H4c-2.2 0-4 1.8-4 4v16c0 2.2 1.8 4 4 4h40c2.2 0 4-1.8 4-4V17c0-2.2-1.8-4-4-4z"
+                                    fill="#ffc107"></path>
+                                <path
+                                    d="M28.102 18h-3.704v13.102h3.704c2 0 2.796-.403 3.296-.704.602-.398.903-1.097.903-1.796v-7.903c0-.898-.403-1.699-.903-2-.796-.5-1.097-.699-3.296-.699zm.699 10.3c0 .598-.7.598-1.301.598V20c.602 0 1.3 0 1.3.602zM33.8 18v13.3h2.802s.199-.902.398-.698c.398 0 1.5.597 2.2.597.698 0 1.1 0 1.5-.199.6-.398.698-.7.698-1.3v-7.802c0-1.097-1.097-1.796-2-1.796-.898 0-1.796.597-2.199.898v-3zm3.598 4.2c0-.4 0-.598.403-.598.199 0 .398.199.398.597v6.602c0 .398 0 .597-.398.597-.2 0-.403-.199-.403-.597zM22.7 31.3V18h-4.4l-.8 6.3-1.102-6.3h-4v13.3h2.903v-7.402l1.3 7.403h2l1.297-7.403v7.403zM7.602 18h3.097v13.3H7.602z"
+                                    fill="#263238"></path>
+                            </svg>
+                        </span>
+                        <span class="has-text-weight-bold">
+                            @Html.DisplayFor(m => Model.Point)
+                        </span>
+
+                    </div>
+                    <div class="d-flex justify-content-between level genres">
+                        <div class="d-flex justify-content-between level-right">
+                            <div class="level-item buttons">
+                                @{
+                                    var genreConnMovie = ViewBag.Genres;
+                                    if (genreConnMovie != null)
+                                    {
+                                        foreach (var item in genreConnMovie)
+                                        {
+                                            <div class="button is-link is-small is-rounded is-inverted is-outlined">
+                                                <a asp-action="Index" asp-route-theLoaiTostring="@item.Genre.NameGenre"
+                                                    style="text-decoration: none; color: #fff;">
+                                                    @item.Genre.NameGenre
+                                                </a>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <dl class="horizontal-dl">
+                        <dt>
+                            Đạo diễn
+                        </dt>
+                        <dd>
+                            @{
+                                var listDirector = ViewBag.PeoplesDirector;
+                                foreach (var item in listDirector)
+                                {
+                                    <a class="item-hori" asp-controller="Peoples" asp-action="Details"
+                                    asp-route-id="@item.IdPeople">@item.People.NamePeople </a>
+                                }
+                            }
+                        </dd>
+                        @{
+                            <dt>
+                                Biên kịch
+                            </dt>
+                            <dd>
+                                @foreach (var item in listDirector)
+                                {
+                                    <a class="item-hori" asp-controller="Peoples" asp-action="Details"
+                                     asp-route-id="@item.IdPeople">@item.People.NamePeople </a>
+                                }
+                            </dd>
+                        }
+                        <dt>
+                            Quốc gia
+                        </dt>
+                        <dd>
+                            @{
+                                var listNation = ViewBag.ListMovieConnNation;
+                                foreach (var item in listNation)
+                                {
+                                    <a class="item-hori" asp-action="Index"
+                                        asp-route-nationPostTostring="@item.Nation.NameNation">@item.Nation.NameNation</a>
+                                }
+                            }
+                        </dd>
+                        <dt>
+                            Khởi chiếu
+                        </dt>
+                        <dd>
+                            @Model.ReleaseDate
+                        </dd>
+                    </dl>
+                    <div class="intro">
+                        @Model.Content
+                    </div>
+                    <h3 class="section-header">Diễn viên</h3>
+                    <div class="list-Performer cast">
+                        <div class="performer">
+                            @{
+                                var listPerformer = ViewBag.PeoplesPerformer;
+                                foreach (var item in listPerformer)
+                                {
+                                    <div >
+                                        <div class="item" tabindex="-1" style="width: 100%; display: inline-block;">
+                                           <a class="image" asp-controller="Peoples" asp-action="Details"
+                                            asp-route-id="@item.People.Id">
+                                            <figure>
+                                                <img src="@item.People.Image" alt="">
+                                            </figure>
+                                            </a>
+                                            <a asp-controller="Peoples" asp-action="Details"
+                                                    asp-route-id="@item.People.Id" style="color: #fff;">
+                                                    <p >@item.People.NamePeople</p></a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <h3 class="section-header">Trailer</h3>
+                    <div class="list-Performer">
+                        <div class="list-trailers">
+                            @{
+                                var listTrailer = ViewBag.ListTrailers;
+                                foreach (var item in listTrailer)
+                                {
+                                    <div style="padding: 2px 1.5em 0 2px;">
+                                        <div class="trailer-item"  id="video_@item.Trailers.Link" onclick="playYT('@item.Trailers.Link')" tabindex="-1" style="width: 100%; display: inline-block;">
+                                        <img src="@item.Trailers.Img">
+                                        <div class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg>
+                                        </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div id="modal-root">
+                            <div class="modal" id="modal-trailer">
+                                <div class="modal-br" id="modal-br-trailer"></div>
+                                <div class="modal-content">
+                                    <div id="link-yt">
+                                        
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="season">
+                        @{
+                            var ep = 0;
+                            @if (ViewBag.Season != null)
+                            {
+                                <h3 class="section-header">SEASON</h3>
+                                <button id="add-ss" class=" my-3">Create Season<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                                </button>
+                                var Season = ViewBag.Season;
+                                @foreach (var item in Season)
+                                {   
+                                    <div class="item-season d-flex pb-2 ">
+                                        <div class="img-ss px-3">
+                                            <a asp-controller="Movies" asp-action="Season" asp-route-idMovie="@Model.Id" asp-route-idSS="@item.Id">
+                                                <img height="85px" width="155px"  src="@item.imgSS" alt="">
+                                            </a>
+                                            
+                                        </div>
+                                        <div>
+                                            <a asp-controller="Movies" asp-action="Season" asp-route-idMovie="@Model.Id" asp-route-idSS="@item.Id" style="color: #428bca;font-family: Merriweather,serif;font-size: 20px;">
+                                                Phần @item.Part : @item.NameSS</a>
+                                            <br>
+                                            <p>@item.ReleaseDate.Day/@item.ReleaseDate.Month/@item.ReleaseDate.Year</p>
+
+                                                    <button   id="video_@item.Id" onclick="AddEpisoder('@item.Id')" tabindex="-1" >Add Episoder
+                                                    <svg style="color: #fff;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path style="color: #fff;" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                                                    </button>
+
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div>
+        <div class="modal-root">
+            <div class="modal " id="modal">
+                <div class="modal-br " id="modal-br">
+                </div>
+                <div class="modal-content">
+                    <div class="box" style="min-width: 400px;">
+                        <h4>Create Season</h4>
+                        <div class="form-group">
+                            <label class="control-label">Name Season(EL)</label>
+                            <input id="namessel"  class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Name Season(VN)</label>
+                            <input id="namessvn" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Img</label>
+                            <input id="imgss" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Part</label>
+                            <input id="partss" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Episodes</label>
+                            <input id="episodesss"  class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">ReleaseDate</label>
+                            <input id="releaseDatess" type="date" class="form-control" />
+                        </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary"  id="savess"/>
+                     </div>
+                    </div>
+                </div>
+            </div>
+             <div class="modal" id="modal-episodes">
+                <div class="modal-br " id="modal-br-episodes">
+                </div>
+                <div class="modal-content">
+                    <div class="box" style="min-width: 400px;">
+                        <h4>Create Episoder</h4>
+                        <div class="form-group">
+                            <label class="control-label">Name Episoder</label>
+                            <input id="NameEpisoder"  class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Episodes</label>
+                            <input id="Episodes" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Img Episodes</label>
+                            <input id="ImgEpisodes" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">ReleaseDate</label>
+                            <input id="ReleaseDate" type="date" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">File</label>
+                            <form id="upload_form" enctype="multipart/form-data" method="post">
+                                    <input  type="file" name="file1" id="file1" onchange="uploadFile()" autocomplete="episodes" placeholder="Episodes" id="Episodes"><br>
+                                    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+                                    <h3 id="status"></h3>
+                                    <p id="loaded_n_total"></p>
+                            </form>
+                        </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary"  id="saveepisoder"/>
+                     </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .modal-br {
+            background-color: rgba(10, 10, 10, .86);
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .modal {
+            align-items: center;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            position: fixed;
+            z-index: 10000;
+        }
+        .modal-content {
+            margin: 0 auto;
+            max-height: calc(100vh - 40px);
+            width: auto;
+        }
+        .modal-content {
+            overflow: auto;
+            position: relative;
+
+        }
+        .box {
+            background-color: #363636;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
+            color: #4a4a4a;
+            display: block;
+            padding: 1.25rem;
+        }
+        .active {
+            display: flex;
+        }
+    </style>
+</body>
+<script>
+    //Video Youtube
+    var modaltrailer = document.getElementById("modal-trailer");
+    function playYT(id)
+    {
+        let html = '<iframe width="1000px" height="600px" src="https://www.youtube.com/embed/'+id+'?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" ></iframe>'
+        document.getElementById('link-yt').innerHTML = html;    
+        modaltrailer.classList.add('active');
+    }
+    var backdroptrailer = document.getElementById("modal-br-trailer");
+    backdroptrailer.onclick = function () {
+        document.getElementById('link-yt').innerHTML = "";   
+        modaltrailer.classList.remove('active'); 
+    };
+    //
+    var buttonssm = document.getElementById("add-ss");
+    var modal = document.getElementById("modal");
+    var modalbr = document.getElementById("modal-br");
+    if(buttonssm != null)
+    {
+    buttonssm.onclick = function () {
+        modal.classList.add('active');
+    };
+    modalbr.onclick = function () {
+        modal.classList.remove('active');
+    };
+    }
+    //add episoders
+    var buttonepisoder = document.getElementById("add-episodes");
+    var modalepisodes = document.getElementById("modal-episodes");
+    var modalbrepisodes = document.getElementById("modal-br-episodes");
+    if(buttonepisoder != null)
+    {
+    
+    }
+    var inputEpisoder = new Object();
+    function AddEpisoder(id)
+    {
+        inputEpisoder.idSS = id;
+        console.log(inputEpisoder);
+        modalepisodes.classList.add('active');
+        modalbrepisodes.onclick = function () {
+        modalepisodes.classList.remove('active');
+       
+    };
+    }
+    var buttoncreatespisoder= document.getElementById("saveepisoder");
+    buttoncreatespisoder.onclick = function()
+    {
+        
+        inputEpisoder.NameEPISODE =$('#NameEpisoder').val();
+        inputEpisoder.Episodes =$('#Episodes').val();
+        inputEpisoder.ImgEpisodes =$('#ImgEpisodes').val();
+        inputEpisoder.ReleaseDate =$('#ReleaseDate').val();
+        var fileEpisoder = document.getElementById('file1');
+        var formData  = new FormData();
+        formData.append('formFile', $('#file1')[0].files[0]);
+        console.log($('#file1')[0].files[0]);
+        console.log(inputEpisoder);
+        $.ajax({
+        url: "/Movies/UpLoadVideo",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data){
+            inputEpisoder.File = data;
+            $.ajax({
+                method: 'POST',
+                url: '/Movies/CreateEpisoder',
+                data: inputEpisoder,
+                ContentType: 'application/json; charset=utf-8',
+                success: function (res) {
+                    alert(res);
+                },
+                error: function () { alert('a error'); }
+            });
+        },
+        error: function () {
+            alert('That bai');
+
+        }
+     })
+    }
+    //craete season 
+    var buttonss = document.getElementById("savess");
+    buttonss.onclick = function() {
+        var input = new Object();
+        input.season = new Object();
+        input.season.NameSS = $('#namessel').val();
+        input.season.NameSSVN = $('#namessvn').val();
+        input.season.imgSS = $('#imgss').val();
+        input.season.Part = $('#partss').val();
+        input.season.Episodes = $('#episodesss').val();
+        input.season.ReleaseDate = $('#releaseDatess').val();
+        var url = window.location.pathname;
+        input.idMovie = url.substring(url.lastIndexOf('/') + 1);
+        console.log(JSON.stringify(input));
+        $.ajax({
+                method: 'POST',
+                url: '@Url.Action("CreateSeason")',
+                data: input,
+                dataType: "json",
+                @* traditional: true, *@
+                ContentType: "application/json; charset=utf-8",
+                success: function()
+                { 
+                },
+                error: function() { alert('A error'); }
+        });
+    }
+    $('.list-trailers').slick({
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        nextArrow: `<div class=" slick-arrow click-previous">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path
+                        d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941
+                        0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484
+                        101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941
+                        0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
+                        </path>
+                        </svg>
+                        </div> `,
+        prevArrow: `<div class="slick-arrow click-next  pull-right type='button'">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path
+                        d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04
+                        33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57
+                        9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z">
+                        </path>
+                        </svg>
+                        </div> `
+    });
+    $('.performer').slick({
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        nextArrow: `<div class=" slick-arrow click-previous">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path
+                        d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941
+                        0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484
+                        101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941
+                        0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
+                        </path>
+                        </svg>
+                        </div> `,
+        prevArrow: `<div class="slick-arrow click-next  pull-right type='button'">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path
+                        d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04
+                        33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57
+                        9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z">
+                        </path>
+                        </svg>
+                        </div> `
+    });
+    function _(el) {
+    return document.getElementById(el);
+  }
+     function uploadFile() {
+    var file = _("file1").files[0];
+    // alert(file.name+" | "+file.size+" | "+file.type);
+    var formdata = new FormData();
+    formdata.append("file1", file);
+    var ajax = new XMLHttpRequest();
+    ajax.upload.addEventListener("progress", progressHandler, false);
+    ajax.addEventListener("load", completeHandler, false);
+    ajax.addEventListener("error", errorHandler, false);
+    ajax.addEventListener("abort", abortHandler, false);
+    ajax.open("POST", "file_upload_parser.php"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+    //use file_upload_parser.php from above url
+    ajax.send(formdata);
+  }
+  
+  function progressHandler(event) {
+    _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+    var percent = (event.loaded / event.total) * 100;
+    _("progressBar").value = Math.round(percent);
+    _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+  }
+  
+  function completeHandler(event) {
+    _("status").innerHTML = event.target.responseText;
+    _("progressBar").value = 0; //wil clear progress bar after successful upload
+  }
+  
+  function errorHandler(event) {
+    _("status").innerHTML = "Upload Failed";
+  }
+  
+  function abortHandler(event) {
+    _("status").innerHTML = "Upload Aborted";
+  }
+</script>
+<style>
+    .slick-arrow {
+        width: 10px;
+    }
+    .slick-arrow {
+        fill: #fff;
+        position: absolute;
+        top: -2.2em;
+        right: 0;
+        cursor: pointer;
+    }
+    .slick-arrow.click-next
+    {
+        right: 30px;
+    }
+</style>

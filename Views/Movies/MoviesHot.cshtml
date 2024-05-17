@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="~/Movies/MoviesHot.cshtml.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+
+</head>
+<style>
+    
+</style>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-3 has-text-centered">Top phim được xem nhiều nhất</h1>
+            <div class="MuiPaper-root mb-4 MuiPaper-elevation1 MuiPaper-rounded">
+                <div class="MuiTabs-root">
+                    <div class="MuiTabs-scroller MuiTabs-fixed" style="overflow: hidden;">
+                        <div class="MuiTabs-flexContainer MuiTabs-centered nav-tabs" id="nav-tab" role="tablist">
+                            <button class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary nav-link active"
+                                id="nav-day-tab" data-bs-toggle="tab" data-bs-target="#nav-day" type="button"
+                                role="tab" aria-controls="nav-day" aria-selected="true">
+                                <span class="MuiTab-wrapper">Ngày</span>
+                                <span class="MuiTouchRipple-root"></span>
+                            </button>
+                            <button class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary nav-link"
+                                id="nav-week-tab" data-bs-toggle="tab" data-bs-target="#nav-week" type="button"
+                                role="tab" aria-controls="nav-week" aria-selected="false">
+                                <span class="MuiTab-wrapper">Tuần</span>
+                                <span class="MuiTouchRipple-root"></span>
+                            </button>
+                            <button class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary nav-link"
+                                id="nav-month-tab" data-bs-toggle="tab" data-bs-target="#nav-month" type="button"
+                                role="tab" aria-controls="nav-month" aria-selected="false">
+                                <span class="MuiTab-wrapper">Tháng</span>
+                                <span class="MuiTouchRipple-root"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active " id="nav-day" role="tabpanel" aria-labelledby="nav-day-tab">
+                    @{
+                        var viewDay = ViewBag.ViewinDay;
+                        @if(viewDay!= null)
+                        {int count1 = 0;
+                            <div class="d-flex " style=" flex-wrap: wrap; padding: 0;  ">
+                               
+                            @foreach(var item in viewDay)
+                            {
+                                <div class="" style="height: 410px; width: 240px; margin: 9px; margin-top: 0;  flex-shrink: 1;">
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id"> <img style="width: 100%; height: 90%"
+                                            src="@item.Image"></a>
+                                        <h6 style="color: #a1a3c6;" class="">@item.NameEL</h6>
+                                    </td>
+                                </div>
+                                count1++;
+                                if (count1 == 30)
+                                {
+                                    break;
+                                }
+                            }
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="tab-pane fade" id="nav-week" role="tabpanel" aria-labelledby="nav-week-tab">
+                      @{
+                        var ViewinWeek = ViewBag.ViewinWeek;
+                        @if(ViewinWeek!= null)
+                        {int count1 = 0;
+                            <div class="d-flex " style=" flex-wrap: wrap; padding: 0;  ">
+                               
+                            @foreach(var item in ViewinWeek)
+                            {
+                                <div class="" style="height: 410px; width: 240px; margin: 9px; margin-top: 0;  flex-shrink: 1;">
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id"> <img style="width: 100%; height: 90%"
+                                            src="@item.Image"></a>
+                                        <h6 style="color: #a1a3c6;" class="">@item.NameEL</h6>
+                                    </td>
+                                </div>
+                                count1++;
+                                if (count1 == 30)
+                                {
+                                    break;
+                                }
+                            }
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="tab-pane fade" id="nav-month" role="tabpanel" aria-labelledby="nav-month-tab">
+                     @{
+                        var ViewinMonth = ViewBag.ViewinMonth;
+                        @if(ViewinMonth!= null)
+                        {int count1 = 0;
+                            <div class="d-flex " style=" flex-wrap: wrap; padding: 0;  ">
+                               
+                            @foreach(var item in ViewinMonth)
+                            {
+                                <div class="" style="height: 410px; width: 240px; margin: 9px; margin-top: 0;  flex-shrink: 1;">
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id"> <img style="width: 100%; height: 90%"
+                                            src="@item.Image"></a>
+                                        <h6 style="color: #a1a3c6;" class="">@item.NameEL</h6>
+                                    </td>
+                                </div>
+                                count1++;
+                                if (count1 == 30)
+                                {
+                                    break;
+                                }
+                            }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+</body>
+
+</html>

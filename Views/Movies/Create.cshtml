@@ -1,0 +1,381 @@
+@model AppFilm.Net.Models.Movie
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Movies/Create.cshtml.css" asp-append-version="true" />
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" rel="stylesheet" />
+</head>
+<body>
+ 
+    <div class="backdrop position-relative w-100 " id="IdBackground" style=""></div>
+    <section class="section d-block">
+        <div class="container w-auto position-relative">
+                <div class="tt-details columns is-variable is-8 d-flex flex-wrap ">
+                    <div class="column is-one-quarter-tablet">
+                        <p class="cover has-text-centered">
+                            <img id="ProfilePicturePreview" >
+                        </p>
+                        <div>
+                            <Button  type="submit" id="createMovie">Create</Button>
+                        </div>
+                    </div>
+                    <div class="column main">
+                        <div class="item-movies first-ingredient">
+                        <div class="group-item">
+                            <div class="item d-flex flex-wrap">
+                                <label for="">Name movie(EL) :</label>
+                                <input  type="text"  autocomplete="NameEL" placeholder="English" id="NameEL">
+                                
+                            </div>
+                            <div class="item d-flex flex-wrap">
+                                <label for="">Name movie(VN) :</label>
+                                <input type="text" autocomplete="nameVn" placeholder="Vietnamese" id="NameVN">
+                            </div>
+                            <div class="item d-flex flex-wrap">
+                                <label for="">Point :</label>
+                                <input type="text" autocomplete="boint" placeholder="Point" id="Point">
+                            </div>
+                            <div class="item d-flex flex-wrap">
+                                <label for="">ReleaseDate :</label>
+                                <input type="text" autocomplete="releaseDate" placeholder="ReleaseDate" id="ReleaseDate">
+                            </div>
+                            <div class="item d-flex flex-wrap">
+                                <label for="">Img :</label>
+                                <input type="text" autocomplete="img" placeholder="Img" id="Image">
+                            </div>
+                            <div class="item d-flex flex-wrap">
+                                <label for="">Background :</label>
+                                <input type="text" autocomplete="background" placeholder="Background" id="Background">
+                            </div>
+                            <div class="item d-flex flex-wrap">
+                                <label for="">Content :</label>
+                                <input type="text" autocomplete="content" placeholder="Content" id="Content">
+                            </div>
+                        </div>
+                     
+                        </div>
+                        <div class="item-movie second-component">
+                        <div class="item d-flex">
+                            <label for="">Movie Type :</label>
+                            <select  id="selectmovietype" onchange="clicktype()" asp-items="ViewBag.MovieType">
+                              
+                            </select>
+                            <div class="ms-3" id="episodis">
+                                <input style=" border-bottom: 1px solid #fff;" type="text" autocomplete="episodes" placeholder="Episodes" id="Episodes">
+                            </div>
+                        </div>
+                        <div class="item d-flex">
+                            <label for="">File Movie :</label>
+                                <form id="upload_form" enctype="multipart/form-data" method="post">
+                                    <input  type="file" name="file1" id="file1" onchange="uploadFile()" autocomplete="episodes" placeholder="Episodes" id="Episodes"><br>
+                                    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+                                    <h3 id="status"></h3>
+                                    <p id="loaded_n_total"></p>
+                                </form>
+                            
+                        </div>
+                        <div class="item d-flex">
+                            <label for="">Nation :</label>
+                            <div class="item-nation d-flex flex-wrap" id="GridViewNation" style="height: auto;">
+                                
+                            </div>
+                            <button id="add-nations"><svg xmlns="http://www.w3.org/2000/svg" 
+                                    viewBox="0 0 448 512">
+                                    <path 
+                                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                                </svg></button>
+                        </div>
+                        <div class="modal-root">
+                            <div class="modal" id="modal">
+                                <div class="modal-br" id="modal-br">
+                                </div>
+                                <div class="modal-content">
+                                    <div class="box flex-nowrap" style="min-width: 300px; max-width: 500px; ">
+                                        @{  
+                                            if(ViewBag.Nations != null )
+                                            {
+                                                var nations = ViewBag.Nations;
+                                                @foreach(var item in nations)
+                                                {
+                                                    <div class="item-nations ">
+                                                            <input type="checkbox" class="btn" name="list-cb-nation" id="@item.NameNation" value="@item.Id">
+                                                            <label class="btn " for="@item.NameNation">@item.NameNation</label>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                        <hr>
+                                        <button id="btn-addnation">Thêm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item d-flex">
+                            <label for="">Genre :</label>
+                            <div class="item-nation d-flex flex-wrap" id="GridViewGenre" style="height: auto;">
+                                
+                            </div>
+                            <button id="add-genre"><svg xmlns="http://www.w3.org/2000/svg" 
+                                    viewBox="0 0 448 512">
+                                    <path
+                                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                            </svg></button>
+                        </div>
+                        <div class="modal-root">
+                            <div class="modal" id="modal-genre">
+                                <div class="modal-br" id="modal-br-genre">
+                                </div>
+                                <div class="modal-content">
+                                    <div class="box flex-nowrap" style="min-width: 300px; max-width: 500px; ">
+                                        @{  
+                                            if(ViewBag.Genres != null )
+                                            {
+                                                var gerens = ViewBag.Genres;
+                                                @foreach(var item in gerens)
+                                                {
+                                                    <div class="item-nations ">
+                                                            <input type="checkbox" class="btn" name="list-gr-nation" id="@item.NameGenre" value="@item.Id">
+                                                            <label class="btn " for="@item.NameGenre">@item.NameGenre</label>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                        <hr>
+                                        <button id="btn-addgenre">Thêm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="item-movie people">
+                        <div class="item">
+                            <div class="d-flex">
+                                <label for="">Director :</label>
+                                <button id="add-director"><svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                    viewBox="0 0 448 512">
+                                    <path
+                                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                                </svg></button>
+                            </div>
+                            <div  id="GridViewDirector">
+                                
+                            </div>
+                        </div>
+                        <div class="modal-root">
+                            <div class="modal" id="modal-director">
+                                <div class="modal-br" id="modal-br-director">
+                                    
+                                </div>
+                                <div class="modal-content">
+                                    <div class="box flex-nowrap" style="min-width: 300px; max-width: 800px; ">        
+                                    <select id="selectdirector" onchange="clickDerector()" style="width: 500px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Peoples">
+                                            
+                                        </select>
+                                        <hr>
+                                        <div class="performer-mroot" >
+                                            <div class="performer_img">
+                                                <img  id="ImgPeopleDiretor">
+                                            </div>
+                                            <div class="performer_item">
+                                                <div class="item-people">
+                                                    <input class="w-100 py-2" type="text" placeholder="Name" id="NamePeople">
+                                                </div>
+                                                <div class="item-people">
+                                                    <input class="w-100 py-2" type="text" placeholder="Year of Birth" id="YearofBirth">
+                                                </div>
+                                                <div class="item-people">
+                                                    <input class="w-100 py-2" type="text" placeholder="Gender" id="GenderPeople">
+                                                </div>
+                                                <div class="item-people">
+                                                    <input class="w-100 py-2" type="text" placeholder="Place of Birth" id="PlaceofBirth">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <button id="btn-adddirector">Thêm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                             <div class="d-flex">
+                                <label for="">Performer :</label>
+                                <button id="add-performer"><svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                    viewBox="0 0 448 512">
+                                    <path
+                                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                                </svg></button>
+                            </div>
+                            <div id="GridViewPerformer">
+                                
+                            </div>
+                        </div>
+                        <div class="modal-root">
+                            <div class="modal" id="modal-performer">
+                                <div class="modal-br" id="modal-br-performer">
+                                    
+                                </div>
+                                <div class="modal-content">
+                                    <div class="box flex-nowrap" style="min-width: 300px; max-width: 800px; ">        
+                                    <select id="selectperformer" onchange="clickpeople()"  style="width: 500px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Peoples">  
+                                        </select>
+                                        <hr>
+                                        <div class="performer-mroot">
+                                            <div class="performer_img">
+                                                <img  id="ImgPeoplePerformer">
+                                            </div>
+                                            <div class="performer_item">
+                                                <div class="item-people">
+                                                    <input class="w-100 py-2" type="text" placeholder="Name" id="NamePeoplePerformer">
+                                                </div>
+                                                <div class="item-people">
+                                                    <input class="w-100 py-2" type="text" placeholder="Year of Birth" id="YearofBirthPerformer">
+                                                </div>
+                                                <div class="item-people">
+                                                    <input class="w-100 py-2" type="text" placeholder="Gender" id="GenderPeoplePerformer">
+                                                </div>
+                                                <div class="item-people">
+                                                    <input class="w-100 py-2" type="text" placeholder="Place of Birth" id="PlaceofBirthPerformer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <button id="btn-addperformer">Thêm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                             <div class="d-flex" >
+                                <label style="width: 20%;">Trailer :</label>
+                                <input id="input-trailer_img" style="margin-right: 10px;margin-left: 10px;" type="text" autocomplete="Img" placeholder="Img">
+                                <input id="input-trailer_link" type="text" autocomplete="Link" placeholder="Link">
+                                <button id="button-add_trailer"><svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                    viewBox="0 0 448 512">
+                                    <path
+                                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                                </svg></button>
+                            </div>
+                            <div  id="GridviewTrailer">
+                                
+                            </div>
+                        </div>
+                          <div id="modal-root">
+                            <div class="modal" id="modal-trailer">
+                                <div class="modal-br" id="modal-br-trailer"></div>
+                                <div class="modal-content">
+                                    <div id="link-yt">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+</body>
+
+</html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+      
+    }
+    <script src="~/Movies/Create.js" asp-append-version="true"></script> 
+}
+
+<style>
+    .second-component .item select
+{
+    background: transparent;
+    color: #7A7A7A;
+    border: none;
+    
+}
+    .select2-container .select2-selection--single
+    {
+        height: 40px !important;
+    }
+   
+    .select2-results__options li{
+        color: #363636 !important;
+    }
+    .select2-dropdown
+    {
+        z-index: 100000 !important;
+    }
+    .modal-br {
+            background-color: rgba(10, 10, 10, .86);
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .modal {
+            align-items: center;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            position: fixed;
+            z-index: 10000;
+        }
+        .modal-content {
+            margin: 0 auto;
+            max-height: calc(100vh - 40px);
+            width: auto;
+        }
+
+        .modal-content {
+            overflow: auto;
+            position: relative;
+        }
+
+        .box {
+            background-color: #363636;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
+            color: #4a4a4a;
+            display: block;
+            padding: 1.25rem;
+        }
+        .active {
+            display: flex;
+        }
+    .slick-arrow {
+        width: 10px;
+    }
+    .slick-arrow {
+        fill: #fff;
+        position: absolute;
+        top: -2.2em;
+        right: 0;
+        cursor: pointer;
+    }
+
+    .slick-arrow.click-next
+    {
+        right: 30px;
+    } 
+</style>
+

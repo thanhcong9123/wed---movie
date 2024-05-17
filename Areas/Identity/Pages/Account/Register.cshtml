@@ -1,0 +1,151 @@
+﻿@page
+@model RegisterModel
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #0e1f32;
+        font-family: sans-serif;
+    }
+
+    .section {
+        position: absolute;
+        width: 400px;
+        padding: 40px;
+        transform: translate(-50%, -50%);
+        background: rgba(29, 28, 28, 0.5);
+        box-sizing: border-box;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+        border-radius: 10px;
+    }
+
+    input {
+    @*padding:10px0!important;*@color: #fff !important;
+        border: none !important;
+        margin-bottom: 30px !important;
+        border-bottom: 1px solid #fff !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    label {
+        color: #fff;
+        outline: none !important;
+    }
+
+    .button-login button {
+        position: relative;
+        display: inline-block;
+        padding: 10px 20px;
+        color: #03e9f4;
+        font-size: 16px;
+        text-decoration: none;
+        text-transform: uppercase;
+        overflow: hidden;
+        transition: .5s;
+        margin-top: 40px;
+        letter-spacing: 4px;
+        content: '';
+
+        transition: opacity .3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    .button-login button:hover {
+        background: #03e9f4;
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 5px #03e9f4,
+            0 0 25px #03e9f4,
+            0 0 50px #03e9f4,
+            0 0 10px #03e9f4;
+
+    }
+</style>
+
+<body>
+    <section class="section top-50 start-50">
+        <div class="container">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control bg-transparent" autocomplete="username"
+                        aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control bg-transparent " autocomplete="new-password"
+                        aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control bg-transparent "
+                        autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.ConfirmPassword" class="form-label">ConfirmPassword</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="button-login ">
+                    <button class="w-100" id="registerSubmit" type="submit">
+                        Register
+                    </button>
+                </div>
+            
+            </form>
+            <div class="m-3">
+                <section>
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <div>
+                                <p>
+                                    There are no external authentication services configured. See this <a
+                                        href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                                        about setting up this ASP.NET application to support logging in via external
+                                        services</a>.
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl"
+                                method="post" class="form-horizontal">
+                                <div>
+                                    <p class="d-flex justify-content-center align-items-center">
+                                        @foreach (var provider in Model.ExternalLogins!)
+                                        {
+                                            <button type="submit" class="btn btn-primary justify-content-center align-items-center"
+                                                style="width: 50%; height: 50px; border-radius: 40px; background-color: ;"
+                                                name="provider" value="@provider.Name"
+                                                title="Log in using your @provider.DisplayName account"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                                    class="bi bi-google" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                                                </svg></button>
+                                        }
+                                    </p>
+                                </div>
+                            </form>
+                        }
+                    }
+                </section>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

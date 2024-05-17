@@ -1,0 +1,17 @@
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+body[b-5bn5pyc4uu]{
+  margin:0;
+  padding:0;
+
+}
+
+.footer[b-5bn5pyc4uu] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+  background: url(https://phimmum.com/static/skin/footer-bg.jpg);
+  
+}

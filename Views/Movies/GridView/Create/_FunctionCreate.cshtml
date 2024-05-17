@@ -1,0 +1,198 @@
+
+@if (ViewBag.AllNationCrMovie != null)
+{
+    foreach (var item in ViewBag.AllNationCrMovie)
+    {
+        <div class="is-name-nation_item">
+            <a>
+                @item.NameNation
+            </a>
+        </div>
+    }
+}
+@if (ViewBag.AllGenreCrMovie != null)
+{
+    foreach (var item in ViewBag.AllGenreCrMovie)
+    {
+        <div class="is-name-nation_item">
+            <a>
+                @item.NameGenre
+            </a>
+        </div>
+    }
+}
+@if (ViewBag.PeopleDirector != null)
+{
+    <div class="list-people director  ">
+        @{
+            var Directorlist = ViewBag.PeopleDirector;
+            foreach (var item in Directorlist)
+            {
+                <div>
+                    <div class="item text-center">
+                        <a class="image">
+                            <figure>
+                                <img src="@item.Image">
+                            </figure>
+                        </a>
+                        <a style="color: #fff;">
+                            <p>@item.NamePeople</p>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}
+@if (ViewBag.PeoplePerformer != null)
+{
+    <div class="list-people performer">
+        @{
+            var Performerlist = ViewBag.PeoplePerformer;
+            foreach (var item in Performerlist)
+            {
+                <div>
+                    <div class="item text-center" tabindex="-1" style="width: 100%; display: inline-block;">
+                        <a class="image">
+                            <figure>
+                                <img src="@item.Image" alt="">
+                            </figure>
+                        </a>
+                        <a style="color: #fff;">
+                            <p>@item.NamePeople</p>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}
+@if (ViewBag.Trailers != null)
+{
+    <div class="list-trailer trailer">
+        @foreach (var item in ViewBag.Trailers)
+        {
+            <div style="padding: 2px 1.5em 0 2px;"  >
+                <div class="trailer-item" id="video_@item.Link" onclick="playYT('@item.Link')" tabindex="-1" style="width: 100%; display: inline-block;box-sizing: border-box;">
+                    <img class="img-trailer" src="@item.Img">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+}
+<style>
+    img {
+        height: auto;
+        max-width: 100%;
+    }
+
+    .list-people figure {
+        height: 120px;
+        width: 120px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+    .tt-details .list-people .item {
+        text-align: center;
+        font-size: .9em;
+    }
+
+    .tt-details .list-people .item .image {
+        margin: 2px 2px 0.5em;
+        display: inline-block;
+    }
+
+    .is-name-nation_item {
+        align-items: center;
+        border: 1px solid #fff;
+        border-radius: 9999px;
+        display: inline-flex;
+        font-size: .75rem;
+        height: 2.5em;
+        justify-content: flex-start;
+        line-height: 1.5;
+        padding: calc(0.5em - 1px) calc(0.75em - 1px);
+        position: relative;
+        vertical-align: top;
+        padding-left: 1.25em;
+        padding-right: 1.25em;
+        margin-right: 0.5rem;
+    }
+
+    .slick-arrow {
+        width: 10px;
+    }
+
+    .slick-arrow {
+        fill: #fff;
+        position: absolute;
+        top: -2.2em;
+        right: 0;
+        cursor: pointer;
+    }
+
+    .slick-arrow.click-next {
+        right: 30px;
+    }
+
+    .list-trailer {
+        margin-top: 20px;
+    }
+
+    .trailer-item .icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        fill: #fff;
+    }
+
+    .trailer-item:hover {
+        box-shadow: 0 0 0 2px #cc7b19;
+
+        .icon {
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+
+    }
+
+    .trailer-item {
+        margin-right: 20px;
+        position: relative;
+        /* height: 0;  */
+        overflow: hidden;
+
+
+    }
+
+    .trailer-item {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+    }
+</style>
+<script>
+function playYT(id)
+{
+    let html = '<iframe width="1000px" height="600px" src="https://www.youtube.com/embed/'+id+'?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" ></iframe>'
+    document.getElementById('link-yt').innerHTML = html;    
+    modaltrailer.classList.add('active');
+}
+</script>

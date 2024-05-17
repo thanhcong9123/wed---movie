@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AppFilm.Net</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/css/mycsstheme.css" asp-append-version="true" />*@
+    @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
+
+    <link rel="stylesheet" href="~/AppFilm.Net.styles.css" asp-append-version="true" />
+</head>
+<style>
+    .navbar {
+        padding: 0 !important;
+        height: 85px;
+    }
+
+    .navbar-nav li:hover {
+        background-color: #102c48;
+
+    }
+</style>
+
+<body style="background-color:#06121e; color: #fff;">
+    <header>
+        <nav class="navbar d-flex navbar-expand-sm navbar-toggleable-sm navbar-light  box-shadow w-100 "
+            style="margin-bottom: 5px;">
+            <a class="navbar-brand  d-flex justify-content-center align-items-center" asp-area=""
+                asp-controller="Movies" asp-action="Home" style="color: #fff; height: 85px;">Movies Best</a>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1" style="height: 85px;">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-center align-items-center"
+                            style="height: 85px; color: #fff;" asp-controller="Movies" asp-action="Search">Tìm kiếm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-center align-items-center"
+                            style="height: 85px; color: #fff;" asp-controller="Movies" asp-action="Index"
+                            asp-route-movietypeTostring="Phim lẻ">Phim lẻ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-center align-items-center"
+                            style="height: 85px; color: #fff;" asp-controller="Movies" asp-action="Index"
+                            asp-route-movietypeTostring="Phim bộ">Phim bộ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-center align-items-center"
+                            style="height: 85px; color: #fff;" asp-controller="Movies" asp-action="MoviesHot">Phim
+                            Hot</a>
+                    </li>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link d-flex justify-content-center align-items-center"
+                                style="height: 85px; color: #fff;" asp-controller="Movies" asp-action="Create">Tạo phim</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex justify-content-center align-items-center"
+                                style="height: 85px; color: #fff;" asp-controller="Peoples" asp-action="Create">Diễn
+                                viên</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex justify-content-center align-items-center"
+                                style="height: 85px; color: #fff;" asp-controller="Roles" asp-action="Index">Role</a>
+                        </li>
+                    }
+
+                </ul>
+
+                <partial class="nav-link" name="_LoginPartial" />
+
+
+            </div>
+        </nav>
+    </header>
+
+    <div id="displayPr" style="">
+        @RenderBody()
+
+    </div>
+
+    <footer class="  border-top  text-muted" style="he">
+        <div class="container">
+            <h3 class="title is-6">Phim chất lượng cao online của<!-- --> <a href="/">XemPhim</a> <!-- -->khác gì so với
+                các trang phim khác?</h3>
+            <ul class="has-text-grey-light">
+                <li>Là phim bluray (reencoded), có độ phân giải thấp nhất là Full HD (1080p), trong khi hầu hết các
+                    trang phim khác chỉ có tới độ phân giải HD (720p) là cao nhất</li>
+                <li>Chất lượng cao, lượng dữ liệu trên giây (bitrate) gấp từ 5 - 10 lần phim online thông thường - đây
+                    là yếu tố quyết định độ nét của phim (thậm chí còn quan trọng hơn độ phân giải)</li>
+                <li>Âm thanh 5.1 (6 channel) thay vì stereo (2 channel) như các trang phim khác (kể cả Youtube)</li>
+                <li>Phù hợp để xem trên màn hình TV, máy tính, laptop có độ phân giải cao</li>
+                <li>Nếu không hài lòng với phụ đề có sẵn, bạn có thể tự upload phụ đề của riêng mình để xem online</li>
+                <li>Có lựa chọn hiện phụ đề song ngữ (tức hiện đồng thời cả tiếng Anh &amp; tiếng Việt), phù hợp với
+                    những người muốn học tiếng Anh qua phụ đề phim</li>
+            </ul>
+
+    </footer>
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.js"></script> *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
+
+<style>
+    .sticky {
+        position: fixed;
+        background-color: rgba(51, 10, 103, .93);
+        transition: 1s;
+        left: 0;
+        right: 0;
+        z-index: 30;
+    }
+</style>

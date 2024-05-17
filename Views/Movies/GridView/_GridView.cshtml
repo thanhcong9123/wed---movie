@@ -1,0 +1,78 @@
+@model IEnumerable<AppFilm.Net.Models.Movie>
+@{
+    AppFilm.Helpers.PagingModel pager = new AppFilm.Helpers.PagingModel();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+
+    }
+
+}
+<div class="d-flex " style=" flex-wrap: wrap; padding: 0;  ">
+
+
+    @foreach (var item in Model)
+    {
+        <div style="height: 430px; width: 260px; margin-left: 32px; margin-right: 32px; flex-shrink: 1;">
+            <td>
+                @if (item.Image != null)
+                {
+                    <a asp-action="Details" asp-route-id="@item.Id"> <img style="width: 260px; height: 370px;"
+                            src="@item.Image"></a>
+                }
+                @if (item.NameEL != null)
+                {
+
+                    <h6 style="color: #a1a3c6;">@Html.DisplayFor(m => item.NameEL)</h6>
+
+                }
+
+            </td>
+
+        </div>
+    }
+</div>
+
+<div class="container">
+    @if (pager.TotalPage > 0)
+    {
+        <ul class="pagination justity-content-end">
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "" )">
+                    <input type="checkbox" class="btn-check" name="page" id="@pge" onclick="Click()" value="@pge">
+                    <label class="page-link" for="@pge">@pge</label>
+                </li>
+            }
+        </ul>
+    }
+    <script language="javascript">
+        function Click() {
+            var input = new Object();
+            var checkbox = document.getElementsByName("page");
+            for (var i = 0; i < checkbox.length; i++) {
+                if (checkbox[i].checked) {
+                    input.nationPostTostring = ($('#nationIdPost').val());
+                    input.theLoaiTostring = ($('#theLoai').val());
+                    input.movietypeTostring = ($('#movietype').val());
+                    input.yearTostring = ($('#year').val());
+                    input.pg = checkbox[i].value;
+                }
+            }
+            $.ajax({
+
+                url: '@Url.Action("FunctionIndex")',
+                data: input,
+                method: 'GET',
+                dataType: "html",
+                success: function (res) {
+                    $('#grdUsers').html('').html(res);
+                    $('#gridviewhomeindex').html('').html(res);
+                },
+                error: function () { alert('A error'); }
+            });
+        }
+    </script>
+</div>

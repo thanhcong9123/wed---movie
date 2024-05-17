@@ -1,0 +1,51 @@
+@model IEnumerable<CollectionMovies>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css ">
+</head>
+<style>
+    input {
+        width: 100%;
+        height: 50px;
+        border-radius: 4px;
+    }
+</style>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="title-list">
+                <div class="mb-5">
+                    <h2>Bộ sưu tập</h2>
+                </div>
+                <div>
+                    <div class="movie-list d-flex " style=" flex-wrap: wrap; padding: 0;">
+                        @foreach (var item in Model)
+                        {
+                            if(item.Movie != null)
+                            {
+                                <div
+                                    style="height: 430px; width: 260px; margin-left: 32px; margin-right: 32px; flex-shrink: 1;">
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Movie.Id"> <img
+                                                style="width: 260px; height: 370px;" src="@item.Movie.Image"></a>
+                                        <h6 style="color: #a1a3c6;" class="">@Html.DisplayFor(modelName => item.Movie.NameEL)</h6>
+                                    </td>
+
+                                </div>
+                            }
+                                    }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

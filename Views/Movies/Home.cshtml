@@ -1,0 +1,183 @@
+@model IEnumerable<AppFilm.Net.Models.Movie>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css ">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+ <style>
+        .colum {
+            display: block;
+            flex-basis: 0;
+            flex-grow: 1;
+            flex-shrink: 1;
+            padding: 0.75rem;
+        }
+        .colums {
+            flex-wrap: wrap; padding: 0; width: 1300px;
+            background-color: #091c2d;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            
+        }
+        h2{
+            color: #b1a21e;
+            font-family: Oswald,sans-serif;
+            font-size: 1.5em;
+            text-shadow: 1px 1px 1px #1a1a1a;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        h2 a {
+            color: #ccc;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        a {
+            color: #428bca;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        h2 svg {
+            fill: #ccc;
+            height: 1em;
+            vertical-align: middle;
+        }
+    </style>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="colums d-flex justify-content-between " >
+                <div class="colum">
+                    <div class="field">
+                        <label style="font-size: 1rem; font-weight: 700;">Loại phim:</label>
+                        <form action="" method="get">
+                            <select style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.MovieType"
+                                  name="movietype"  onchange="Changed()" id="movietype" >
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <div class="colum">
+                    <div class="field">
+                        <label style="font-size: 1rem; font-weight: 700;">Thể loại:</label>
+                        <form action="" method="get">
+                            <select style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Genres"
+                              name="theLoai"  onchange="Changed()" id="theLoai" ></select>
+                        </form>
+                    </div>
+                </div>
+                <div class="colum">
+                    <div class="field"> 
+                        <label for="" style="font-size: 1rem; font-weight: 700;">Quốc gia:</label>
+                        <form action="" method="get">
+                            <select style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Nations"
+                                name="nationIdPost" onchange="Changed()" id="nationIdPost" ></select>
+                        </form>
+                    </div>
+                </div>
+                <div class="colum">
+                    <div class="field"> 
+                        <label for="" style="font-size: 1rem; font-weight: 700;">Năm:</label>
+                        <form action="" method="get">
+                            <select  style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Years"
+                               name="year"  onchange="Changed()" id="year" ></select>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+             
+            <div class="container">
+                <div id="gridviewhomeindex" class="item-list">
+                    <h2 class="is-2">
+                        <span>
+                            PHIM ĐỀ CỬ
+                        </span>
+                        
+                    </h2>
+                    <hr />
+                    <div class="movies-like d-flex"  style=" flex-wrap: wrap; justify-content: center;">
+                        @{
+                            int count = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <div class="" style="height: 410px; width: 240px; margin: 9px; margin-top: 0;  flex-shrink: 1;">
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.Id"> <img style="width: 100%; height: 90%"
+                                    src="@item.Image"></a>
+                                    <h6 style="color: #a1a3c6;" class="">@Html.DisplayFor(modelName => item.NameEL)</h6>
+                                </td>
+                             </div>
+                             count ++;
+                             if(count == 5)
+                             {
+                                break;
+                             }
+                        }
+                    </div>
+                    <h2 class="is-2 d-flex justify-content-between" >
+                        <span>
+                            PHIM lẻ mới được cập nhật
+                        </span>
+                        <a href="/movies/index">Xem tất cả <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg></a>
+                       
+                    </h2>
+                     <hr />
+                    <div id="gridviewsinglemovie">
+                        
+                    </div>
+                    
+                </div>
+               
+            </div>
+            
+           
+        </div>
+     
+     
+    </div>
+</body>
+</html>
+@section Scripts{
+<script type="text/javascript">
+    $(() => {
+                 $.ajax({
+                url: '@Url.Action("FunctionHome")',
+                data: null,
+                method: 'GET',
+                dataType: "html",
+                success: function (res) {
+                    $('#gridviewsinglemovie').html('').html(res);
+                },
+                error: function () { alert('A error'); }
+            });
+    });
+            function Changed()
+            {
+                var input = new Object();
+                input.nationPostTostring =($('#nationIdPost').val());
+                input.theLoaiTostring =($('#theLoai').val());
+                input.movietypeTostring = ($('#movietype').val());
+                input.yearTostring = ($('#year').val());
+                console.log(JSON.stringify(input));
+                $.ajax({
+                    url: '@Url.Action("FunctionIndex")',
+                    data:  input,
+                    method: 'GET',
+                    dataType: "html",
+                    success: function(res)
+                    { 
+                     $('#gridviewhomeindex').html('').html(res);
+                    },
+                    error: function() { alert('A error'); }
+                });
+            }
+</script>
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,0 +1,112 @@
+body{
+    font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+body {
+    color: #fff;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+
+.title {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.125;
+}
+.has-text-centered{
+    text-align: center;
+}
+.MuiPaper-root {
+    color: #fff;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: #0b1e30;
+}
+.MuiPaper-elevation1{
+    border-radius: 4px;
+    
+}
+.MuiTabs-root {
+  
+    overflow: hidden;
+    min-height: 48px;
+   
+}
+.MuiTabs-fixed {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+
+.MuiTabs-centered {
+    justify-content: center;
+}
+
+
+.MuiTabs-flexContainer {
+    display: flex;
+}
+
+.MuiTab-root {
+    min-width: 600px;
+}
+
+.MuiTab-textColorPrimary.Mui-selected {
+    color: #3f51b5;
+}
+.MuiTab-textColorPrimary {
+    color: rgba(255, 255, 255, 0.7);
+}
+span {
+    font-style: inherit;
+    font-weight: inherit;
+}
+.nav-tabs .nav-link.active {
+    color: #3f51a9;
+    background-color: transparent;
+    border-bottom: 2px solid #3f51a9;
+    
+    
+}
+
+.nav-tabs {
+    border-bottom: transparent;
+   
+}
+.MuiTab-root {
+    width: 160px;
+}
+.MuiTab-root {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    max-width: 264px;
+    min-width: 72px;
+    box-sizing: border-box;
+    min-height: 48px;
+    text-align: center;
+    flex-shrink: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    text-transform: uppercase;
+}
+.MuiButtonBase-root {
+    color: inherit;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    display: inline-flex;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    align-items: center;
+    user-select: none;
+    border-radius: 0;
+    vertical-align: middle;
+    
+    justify-content: center;
+    text-decoration: none;
+    background-color: transparent;
+  
+    -webkit-tap-highlight-color: transparent;
+}

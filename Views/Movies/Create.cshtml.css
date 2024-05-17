@@ -1,0 +1,266 @@
+* {
+    min-height: 0;
+    min-width: 0;
+}
+.section
+{
+    padding: 3rem 0.8rem;
+}
+.container{
+    margin: 0 auto; 
+   
+}
+.backdrop {
+    height: 600px;
+    /* Làm kích thước ảnh thu lại đủ để chu trong khung */
+    background-size: cover;
+    /* Thuộc tính background-position dùng để thiết lập "vị trí của hình nền" trong phần tử HTML. */
+    background-position: 50% 0;
+    /* Thuộc tính background-repeat dùng để thiết lập "sự lặp lại của hình nền" cho phần tử HTML. */
+    background-repeat: no-repeat;
+    /* làm cho phần tử không tác động đến các thẻ khác */
+
+}
+
+.backdrop:before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(2, 13, 24, .75);
+}
+.columns
+{
+    margin-top: -360px;
+}
+.columns.is-variable.is-8 {
+    /* Xác định khoảng cách nữa hai cột */
+    column-gap: 2rem;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+img {
+    height: auto;
+    max-width: 100%;
+}
+.column.is-one-quarter-tablet
+{
+    flex: none;
+    width: 25%;
+    min-width: 300px;
+}
+.column.main
+{
+    
+    min-width: 300px;
+}
+.column {
+    display: block;
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: 0.75rem;
+}
+
+.group-item{
+    margin-bottom: 2rem;
+}
+.first-ingredient .group-item .item label
+{
+    width: 25%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #7A7A7A;
+    text-transform: uppercase;
+    font-weight: 700;
+    
+}
+.item
+{
+    margin-bottom: 0.5rem;
+}
+.item input 
+{
+    width: 100%;
+    max-width:  600px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 15px;
+    /* ẩn đường viền khi click vào text */
+    outline: none;
+}
+.item-people input
+{
+    font-size: 16px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.performer_img img
+{
+    width: 160px;
+    height: 180px;
+    border: 2px solid #7A7A7A;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+button
+{
+    text-align: center;
+}
+.second-component .item label
+{
+    width: 15%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #7A7A7A;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.second-component .item input
+{
+    border: none;
+}
+button
+{
+    width: 100%;
+}
+.second-component .item select:hover
+{
+    border: 1px solid #fff;
+}
+.second-component .item button
+{
+    width: 50px;
+    background:#7A7A7A;
+    border-radius: 50%;
+    border: none;
+    height: 30px;
+}
+.second-component .item button svg
+{
+    height: 20px;   
+    transform: translate(-50%, -50%);
+    position: absolute;
+
+
+}
+.second-component .item button:hover
+{
+    border: 2px solid #fff;
+    background-color: #fff;
+    box-shadow: 0 0 5px #03e9f4,
+            0 0 5px #03e9f4,
+            0 0 5px #03e9f4,
+            0 0 5px #03e9f4;
+}
+.is-name-nation_item
+{
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 9999px;
+    display: inline-flex;
+    font-size: .75rem;
+    height: 2.5em;
+    justify-content: flex-start;
+    line-height: 1.5;
+    padding: calc(0.5em - 1px) calc(0.75em - 1px);
+    position: relative;
+    vertical-align: top;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    margin-right: 0.5rem;
+}
+.people .item label
+{
+    width: 15%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #7A7A7A;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.people .item button
+{
+    width: 50px;
+    background:#7A7A7A;
+    border-radius: 50%;
+    border: none;
+    height: 30px;
+}
+.people .item button svg
+{
+    height: 20px;   
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+.people .item button:hover
+{
+    border: 2px solid #fff;
+    background-color: #fff;
+    box-shadow: 0 0 5px #03e9f4,
+            0 0 5px #03e9f4,
+            0 0 5px #03e9f4,
+            0 0 5px #03e9f4;
+}
+.list-people figure
+{
+    height: 120px;
+    width: 120px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    
+}
+.tt-details .list-people .item {
+    text-align: center;
+    font-size: .9em;
+}
+.tt-details .list-people .item .image {
+    margin: 2px 2px 0.5em;
+    display: inline-block;
+}
+
+
+#boxsizing {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  }
+
+.item-nations
+{
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 9999px;
+    display: inline-flex;
+    font-size: .75rem;
+    height: 2.5em;
+    justify-content: flex-start;
+    line-height: 1.5;
+    padding: calc(0.5em - 1px) calc(0.75em - 1px);
+    position: relative;
+    vertical-align: top;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    margin-right: 0.5rem;
+}
+.item-nations label{
+    color: #fff;
+}
+.item-nations:hover{
+    background: #03e9f4;
+}

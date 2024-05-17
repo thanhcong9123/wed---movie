@@ -1,0 +1,104 @@
+@model AppFilm.Net.Models.SeasonsConnMovie
+@if(ViewBag.WatchLink != null)
+{
+ <video style="width:100%; height:500px;" controls>
+            <source src="@Url.Content(ViewBag.WatchLink.File)" type="video/mp4" />
+        </video>
+}
+       
+
+<style>
+    .button {
+        margin-bottom: 0.5rem;
+    }
+
+    button.is-success[disabled],
+    .button.is-success {
+        background-color: #48c78e;
+        border-color: #48c78e;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    a {
+        color: #428bca;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .button {
+        background-color: #fff;
+        border-color: #dbdbdb;
+        border-width: 1px;
+        color: #363636;
+        cursor: pointer;
+        justify-content: center;
+        padding: calc(0.5em - 1px) 1em;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .button[disabled],
+    fieldset[disabled] .button {
+        background-color: #fff;
+        border-color: #dbdbdb;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: .5;
+    }
+
+    .title {
+        margin: 0 0 1em;
+        font-family: Merriweather, serif;
+        font-weight: 400;
+        font-size: 2rem;
+
+    }
+
+    .is-5 {
+        font-size: 1.25rem;
+        color: #b5b5b5;
+        font-weight: 400;
+        line-height: 1.25;
+        word-break: break-word;
+    }
+</style>
+<section class="my-3">
+    <div class="container">
+        <div class="main">
+            @if (@Model.Season != null && @Model.Movie != null)
+            {
+                <h3 class="title">@Model.Movie.NameEL (Season @Model.Season.Part)</h3>
+                <h5 class="title is-5">@Model.Movie.NameVN (Phần @Model.Season.Part)</h5>
+            }
+        </div>
+        <div class="episode">
+            @if(ViewBag.ListEpisodes != null)
+            {
+
+            @if (((IEnumerable<dynamic>)ViewBag.ListEpisodes).Count() > 1)
+            {
+                foreach (var item in ViewBag.ListEpisodes)
+                {
+                    if (ViewBag.WatchLink.Episodes == @item.Episodes)
+                    {
+                        <a asp-controller="Movies" asp-action="WatchMovie" asp-route-idMovie="@Model.IdMovie"
+                            asp-route-idSS="@Model.IdSeason" asp-route-episode="@item.Id" class="button is-success" disabled>Tập
+                            @item.Episodes</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Movies" asp-action="WatchMovie" asp-route-idMovie="@Model.IdMovie"
+                            asp-route-idSS="@Model.IdSeason" asp-route-episode="@item.Id" class="button is-success">Tập
+                            @item.Episodes</a>
+                    }
+
+                }
+
+            }
+                            
+            }
+
+        </div>
+    </div>
+</section>

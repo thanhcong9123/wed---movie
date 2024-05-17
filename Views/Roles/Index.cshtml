@@ -1,0 +1,32 @@
+
+@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<IdentityRole>    
+@{
+    ViewData["Title"] = "Danh sách các role";
+}
+<style>
+  th{
+    color: aliceblue;
+  }
+</style>
+<a class="btn btn-secondary" asp-action="Create">Tạo Role</a>
+<h2>@ViewData["Title"]</h2>
+<table class="table">
+  <tr>
+    <th>@Html.DisplayNameFor(model => model.Id)</th>
+    <th>@Html.DisplayNameFor(model => model.Name)</th>
+    
+  </tr>
+    @foreach (var role in @Model)
+    {
+          <tr>
+            <th >@Html.DisplayFor(model => role.Id)</th>
+            <th>@Html.DisplayFor(model => role.Name)</th>
+            <td> <a asp-action="Edit" asp-route-id="@role.Id">Edit</a></td>
+            <td> <a asp-action="Delete" asp-route-id="@role.Id">Delete</a></td>
+            
+          </tr>
+        
+          
+    }
+</table>

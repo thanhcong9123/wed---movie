@@ -1,0 +1,183 @@
+@model IEnumerable<AppFilm.Net.Models.Movie>
+@{
+    AppFilm.Helpers.PagingModel pager = new AppFilm.Helpers.PagingModel();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+
+    }
+
+}
+<div>
+    <style>
+        .media {
+            align-items: flex-start;
+            text-align: inherit;
+        }
+
+        a {
+            color: #dbdbdb;
+            text-decoration: none;
+
+        @*Thayđổicontrỏchuộtnkhitrỏvào*@cursor: pointer;
+        }
+
+        .column {
+            flex-shrink: 1;
+        }
+
+        h1,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 100%;
+            font-weight: 400;
+        }
+
+        .intro {
+            color: #b5b5b5;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            max-height: 4em;
+            line-height: 2em;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+
+        }
+    </style>
+    @foreach (var item in Model)
+    {
+        <div class="media m-3 d-flex ">
+            @if (item.Image != null)
+            {
+
+                <a class="me-4 " asp-action="Details" asp-route-id="@item.Id"> <img style="width: 150px; height: auto;"
+                        src="@item.Image"></a>
+
+            }
+            <div class="media-content">
+                <div class="columns d-flex justify-content-between">
+                    <div class="column  justify-content-between">
+                        <h3>
+                            @if (item.NameEL != null)
+                            {
+                                <a style="font-weight: 700;" asp-action="Details" asp-route-id="@item.Id">@item.NameEL</a>
+                            }
+                        </h3>
+                        <h5>
+                            @if (item.NameVN != null)
+                            {
+                                <a asp-action="Details" asp-route-id="@item.Id"
+                                    style="color: #7a7a7a; font-weight: 700;">@item.NameVN</a>
+                            }
+                        </h5>
+                    </div>
+                    <div class="column justify-content-between">
+                        @if (item.NationConnMovies != null)
+                        {
+                            var last = item.NationConnMovies.LastOrDefault();
+                            <div>
+                                @foreach (var nation in item.NationConnMovies)
+                                {
+                                    if (nation.Equals(last) == true)
+                                    {
+                                        <a>@nation.Nation.NameNation </a>
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        <a>@nation.Nation.NameNation , </a>
+                                    }
+
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                @if (item.Content != null)
+                {
+                    <div class="intro">@item.Content</div>
+                }
+                <div class="columns">
+                    <div class="justify-content-between d-flex">
+                        <div class="column justify-content-between d-flex">
+                            @foreach (var geren in item.GenreConnMovies)
+                            {
+                                <div class="m-2">
+                                    <a asp-action="Index" asp-route-theLoaiTostring="@geren.Genre.NameGenre"
+                                        class="tag is-dark">@geren.Genre.NameGenre</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<style>
+    .tag.tag.is-dark {
+        color: #dbdbdb;
+        background-color: #363636;
+        margin-bottom: 0.5rem;
+    }
+
+    .tag:not(body) {
+        align-items: center;
+        border-radius: 4px;
+        display: inline-flex;
+        font-size: .75rem;
+        height: 2em;
+        justify-content: center;
+        line-height: 1.5;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
+        white-space: normal;
+    }
+</style>
+<div class="container">
+    @if (pager.TotalPage > 0)
+    {
+        <ul class="pagination justity-content-end">
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "" )">
+                    <input type="checkbox" class="btn-check" name="page" id="@pge" onclick="Click()" value="@pge">
+                    <label class="page-link" for="@pge">@pge</label>
+                </li>
+            }
+        </ul>
+    }
+    <script language="javascript">
+        function Click() {
+            var input = new Object();
+            var checkbox = document.getElementsByName("page");
+            for (var i = 0; i < checkbox.length; i++) {
+                if (checkbox[i].checked) {
+                    input.nationPostTostring = ($('#nationIdPost').val());
+                    input.theLoaiTostring = ($('#theLoai').val());
+                    input.movietypeTostring = ($('#movietype').val());
+                    input.yearTostring = ($('#year').val());
+                    input.pg = checkbox[i].value;
+                    input.background = 2;
+                }
+            }
+            $.ajax({
+
+                url: '@Url.Action("FunctionIndex")',
+                data: input,
+                method: 'GET',
+                dataType: "html",
+                success: function (res) {
+                    $('#grdUsers').html('').html(res);
+                    $('#gridviewhomeindex').html('').html(res);
+                },
+                error: function () { alert('A error'); }
+            });
+        }
+    </script>
+</div>

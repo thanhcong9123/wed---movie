@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css ">
+</head>
+<style>
+    input
+    {
+        width: 100%;
+        height: 50px;
+        border-radius: 4px;
+    }
+</style>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="title-list">
+                <div class="mb-5" >
+                    <input type="text" id="txtSearch" autofocus class="input is-medium" placeholder="Nhập tên phim...">
+                </div>
+                <div id="_gridviewmovie">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+@section Scripts{
+<script>
+    $(() => {
+        getUser();
+        $('#txtSearch').on('keyup' ,() =>
+        {
+           getUser();
+        });
+    });
+    //javascrip gọi sự kiện FunctionSearch trong controller để sử dụng
+     function getUser() {
+        var obj = new Object();
+        obj.searchString =  $('#txtSearch').val()
+        console.log(JSON.stringify(obj));
+                 $.ajax({
+                url: '@Url.Action("FunctionSearch")',
+                data: obj,
+                method: 'GET',
+                dataType: "html",
+                success: function (res) {
+                    $('#_gridviewmovie').html('').html(res);
+                },
+                error: function () { alert('A error'); }
+            });
+            }
+</script>
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>@ViewData["Title"] </title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css ">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        
+
+        .colum {
+            display: block;
+            flex-basis: 0;
+            flex-grow: 1;
+            flex-shrink: 1;
+            padding: 0.75rem;
+        }
+        .colums {
+            flex-wrap: wrap; padding: 0; width: 1300px;
+            background-color: #091c2d;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #06121e;">
+    <div class="container">
+        <div class="row">
+            <div class="colums d-flex justify-content-between " >
+                <div class="colum">
+                    <div class="field">
+                        <label style="font-size: 1rem; font-weight: 700;">Loại phim:</label>
+                        <form action="" method="get">
+                            <select style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.MovieType"
+                                  name="movietype"  onchange="Changed()" id="movietype" >
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <div class="colum">
+                    <div class="field">
+                        <label style="font-size: 1rem; font-weight: 700;">Thể loại:</label>
+                        <form action="" method="get">
+                            <select style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Genres"
+                              name="theLoai"  onchange="Changed()" id="theLoai" ></select>
+                        </form>
+                    </div>
+                </div>
+                <div class="colum">
+                    <div class="field"> 
+                        <label for="" style="font-size: 1rem; font-weight: 700;">Quốc gia:</label>
+                        <form action="" method="get">
+                            <select style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Nations"
+                                name="nationIdPost" onchange="Changed()" id="nationIdPost" ></select>
+                        </form>
+                    </div>
+                </div>
+                <div class="colum">
+                    <div class="field"> 
+                        <label for="" style="font-size: 1rem; font-weight: 700;">Năm:</label>
+                        <form action="" method="get">
+                            <select  style="width: 200px; height: 40px; border-radius: 3px;" asp-items="ViewBag.Years"
+                               name="year"  onchange="Changed()" id="year" ></select>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="colum"  style="max-width: 100px;">
+                    <div class="field m-1"><label class="label">Hiển thị:</label></div>
+                    <div class="field">
+                     
+                     <div><a href="#" id="display-1" style="fill: #fff;" >
+                        <svg style="width: 25px; height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M96 96c0 26.51-21.49 48-48 48S0 122.51 0 96s21.49-48 48-48 48 21.49 48 48zM48 208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm0 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm96-236h352c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h352c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h352c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a>
+                        <a class="active" href="#" id="display-2" style="fill: #fff; margin-left: 10px;" ><svg style="width: 25px; height: 25px;"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M149.333 56v80c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24h101.333c13.255 0 24 10.745 24 24zm181.334 240v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm32-240v80c0 13.255 10.745 24 24 24H488c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24zm-32 80V56c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm-205.334 56H24c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24zM0 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm386.667-56H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zm0 160H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zM181.333 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24z"></path></svg></a></div>
+                    </div>
+                </div>
+            </div>
+            <div id="grdUsers">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    .active{
+        fill: #7a7a7a !important;
+    }
+</style>
+@section Scripts{
+    <script type="text/javascript">
+            var input = new Object();
+            input.background = 1;
+            // obj là tham số truyền vào và cũng chính là thẻ select
+            $(() => 
+            {
+                const myKeysValues = window.location.search;
+                const urlParams = new URLSearchParams(myKeysValues);
+                input.nationPostTostring=urlParams.get('nationPostTostring');
+                input.theLoaiTostring= urlParams.get('theLoaiTostring');
+                input.movietypeTostring = urlParams.get('movietypeTostring');    
+                input.yearTostring = urlParams.get('yearTostring');  
+                input.pg =  urlParams.get('pg');
+                console.log((urlParams));
+                $.ajax({
+                    url: '@Url.Action("FunctionIndex")',
+                    data:  input,
+                    method: 'GET',
+                    dataType: "html",
+                    success: function(res)
+                    { 
+                         $('#grdUsers').html('').html(res);
+                        if(input.nationPostTostring != null)
+                        {
+                            const $selectnationIdPost = document.querySelector('#nationIdPost');
+                            for(let i =0 ; $selectnationIdPost.length; i++)
+                            {
+                                if((input.nationPostTostring.toLowerCase() === $selectnationIdPost.options[i].value.toLowerCase()) === true)
+                                {
+                                    $selectnationIdPost.value =  $selectnationIdPost.options[i].value
+                                    break;
+                                }    
+                            }   
+                        }
+                        if(input.yearTostring != null)
+                        {
+                            const $selectyear = document.querySelector('#year');
+                            for(let i =0 ; $selectyear.length; i++)
+                            {
+                                if(($selectyear.options[i].value.toLowerCase()  === input.yearTostring.toLowerCase()) === true)
+                                {
+                                    $selectyear.value = $selectyear.options[i].value
+                                    break;
+                                }   
+                            }   
+                        }
+                        if(input.movietypeTostring != null)
+                        {
+                            const $selectmovietype = document.querySelector('#movietype');
+                            for(let i =0 ; $selectmovietype.length; i++)
+                            {
+                                if(($selectmovietype.options[i].value.toLowerCase()  === input.movietypeTostring.toLowerCase()) === true )
+                                {
+                                    $selectmovietype.value = $selectmovietype.options[i].value
+                                    break;
+                                }
+                            }  
+                        }
+                        if(input.theLoaiTostring != null)
+                        {
+                            const $selecttheLoai = document.querySelector('#theLoai');
+                            for(let i =0 ; $selecttheLoai.length; i++)
+                            {
+                                if(($selecttheLoai.options[i].value.toLowerCase() == input.theLoaiTostring.toLowerCase()) === true)
+                                {
+                                    $selecttheLoai.value = $selecttheLoai.options[i].value
+                                    break;
+                                }
+                            }
+                        }
+                    },
+                    error: function() { alert('A error'); }
+                });
+            })
+            function Changed()
+            {
+                input.nationPostTostring =($('#nationIdPost').val());
+                input.theLoaiTostring =($('#theLoai').val());
+                input.movietypeTostring = ($('#movietype').val());
+                input.yearTostring = ($('#year').val());
+                console.log(JSON.stringify(input));
+                $.ajax({
+                    url: '@Url.Action("FunctionIndex")',
+                    data:  input,
+                    method: 'GET',
+                    dataType: "html",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function(res)
+                    { 
+                     $('#grdUsers').html('').html(res);
+                    },
+                    error: function() { alert('A error'); }
+                });
+             }
+                //Thay đổi giao diện
+                var buttondisplay1 = document.getElementById("display-1");
+                var buttondisplay2 = document.getElementById("display-2");
+                buttondisplay1.onclick = function(){
+                buttondisplay1.classList.add('active');
+                    input.background= 2;
+                    buttondisplay2.classList.remove('active');
+                    input.nationPostTostring =($('#nationIdPost').val());
+                    input.theLoaiTostring =($('#theLoai').val());
+                    input.movietypeTostring = ($('#movietype').val());
+                    input.yearTostring = ($('#year').val());
+                    console.log(JSON.stringify(input));
+                $.ajax({
+                    url: '@Url.Action("FunctionIndex")',
+                    data:  input,
+                    method: 'GET',
+                    dataType: "html",
+                    success: function(res)
+                    { 
+                     $('#grdUsers').html('').html(res);
+                    },
+                    error: function() { alert('A error'); }
+                });
+                }
+                buttondisplay2.onclick = function(){
+                    buttondisplay2.classList.add('active');
+                    input.background= 1;
+                    buttondisplay1.classList.remove('active');
+                    input.nationPostTostring =($('#nationIdPost').val());
+                    input.theLoaiTostring =($('#theLoai').val());
+                    input.movietypeTostring = ($('#movietype').val());
+                    input.yearTostring = ($('#year').val());
+                    console.log(JSON.stringify(input));
+                $.ajax({
+                    url: '@Url.Action("FunctionIndex")',
+                    data:  input,
+                    method: 'GET',
+                    dataType: "html",
+                    success: function(res)
+                    { 
+                     $('#grdUsers').html('').html(res);
+                    },
+                    error: function() { alert('A error'); }
+                });
+                }
+        </script>
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
